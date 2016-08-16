@@ -1,0 +1,5 @@
+- name: install php
+  yum: name=php state=latest
+
+- name: install php-mysql headers
+  yum: name=php-mysql state=latest

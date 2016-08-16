@@ -1,0 +1,8 @@
+- name: test ansible
+  shell: "touch /tmp/mysql_ansible"
+
+- name: install mysql
+  yum: name=mysql-server state=latest
+
+- name: start mysqld server
+  service: name=mysqld state=started

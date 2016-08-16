@@ -1,0 +1,35 @@
+- name: touch file for test
+  shell: "touch /tmp/wp_ansible"
+
+- name: create mysql database
+  mysql_db: name={{ wp_db_name }} state=present
+
+- name: create mysql user
+  mysql_user: name={{ wp_db_user }} password={{ wp_db_password }} priv=*.*:ALL state=present
+
+- name: create wordpress user
+  user: name={{ wp_user }}
+
+- name: create wordrpess directory
+  file: path=/{{ wp_install_dir }} state=directory recurse=yes owner={{ wp_user }} group={{ wp_user }} mode="1755"
+
+- name: download and extract wordpress
+  unarchive: src={{ wp_tar_url }} dest=/{{ wp_install_dir }} copy=no validate_certs=no
+
+- name: place wp-config file
+  template: src={{ wp_config_path }} dest=/{{ wp_config_path }}
+
+- name: place apache config file
+  template: src=etc/httpd/conf/httpd.conf dest=/etc/httpd/conf/httpd.conf
+
+- name: move wordpress files to apache directory
+  shell: "cp -r /{{ wp_install_dir}}/wordpress/* /var/www/html"
+
+- name: restart apache
+  service: name=httpd state=restarted
+
+
+
+
+
+

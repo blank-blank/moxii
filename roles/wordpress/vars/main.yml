@@ -1,0 +1,7 @@
+wp_tar_url: "https://wordpress.org/latest.tar.gz"
+wp_user: "wordpress"
+wp_install_dir: "opt/wordpress"
+wp_config_path: "{{ wp_install_dir }}/wordpress/wp-config.php"
+wp_db_name: "wordpress"
+wp_db_user: "wordpress"
+wp_db_password: "wordpress"
